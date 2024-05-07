@@ -2,14 +2,33 @@ document.getElementById('videoForm').addEventListener('submit', async (event) =>
     event.preventDefault();
   
     const title = document.getElementById('title').value;
+    const channel = document.getElementById('channel').value;
     const url = document.getElementById('url').value;
+    const videoId = document.getElementById('videoId').value;
+    const category = document.getElementById('category').value;
     const description = document.getElementById('description').value;
+    const viewCount = document.getElementById('viewCount').value;
+    const publishedAt = document.getElementById('publishedAt').value;
+    const duration = document.getElementById('duration').value;
+    const thumbnail = document.getElementById('thumbnail').value;
+    const language = document.getElementById('language').value;
+    const difficulty = document.getElementById('difficulty').value;
+    const channelTitle = document.getElementById('channelTitle').value;
   
     const videoData = {
       title,
+      channel,
       url,
+      videoId,
+      category,
       description,
-      // Add other required fields here
+      viewCount,
+      publishedAt,
+      duration,
+      thumbnail,
+      language,
+      difficulty,
+      channelTitle
     };
   
     try {
@@ -26,7 +45,6 @@ document.getElementById('videoForm').addEventListener('submit', async (event) =>
   
       if (response.ok) {
         console.log('Video saved successfully.');
-        // Clear form fields after successful submission
         document.getElementById('videoForm').reset();
       } else {
         console.error('Error inserting video:', response.statusText);
@@ -40,7 +58,17 @@ document.getElementById('videoForm').addEventListener('submit', async (event) =>
   browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     browser.tabs.sendMessage(tabs[0].id, { action: 'getYouTubeInfo' }, (youtubeInfo) => {
       document.getElementById('title').value = youtubeInfo.title;
+      document.getElementById('channel').value = youtubeInfo.channel;
       document.getElementById('url').value = youtubeInfo.url;
+      document.getElementById('videoId').value = youtubeInfo.videoId;
+      document.getElementById('category').value = youtubeInfo.category;
       document.getElementById('description').value = youtubeInfo.description;
+      document.getElementById('viewCount').value = youtubeInfo.viewCount;
+      document.getElementById('publishedAt').value = youtubeInfo.publishedAt;
+      document.getElementById('duration').value = youtubeInfo.duration;
+      document.getElementById('thumbnail').value = youtubeInfo.thumbnail;
+      document.getElementById('language').value = youtubeInfo.language;
+      document.getElementById('difficulty').value = youtubeInfo.difficulty;
+      document.getElementById('channelTitle').value = youtubeInfo.channelTitle;
     });
   });

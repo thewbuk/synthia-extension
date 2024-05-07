@@ -5,7 +5,8 @@
     "description": "Saves the currently watched YouTube video to Supabase database.",
     "permissions": [
       "activeTab",
-      "storage"
+      "storage",
+      "https://www.youtube.com/*"
     ],
     "content_scripts": [
       {
