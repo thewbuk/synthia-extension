@@ -1,0 +1,19 @@
+{
+    "manifest_version": 2,
+    "name": "YouTube Video Saver",
+    "version": "1.0",
+    "description": "Saves the currently watched YouTube video to Supabase database.",
+    "permissions": [
+      "activeTab",
+      "storage"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["*://www.youtube.com/watch?v=*"],
+        "js": ["content.js"]
+      }
+    ],
+    "browser_action": {
+      "default_popup": "popup.html"
+    }
+  }
