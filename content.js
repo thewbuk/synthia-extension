@@ -15,8 +15,8 @@ async function extractYouTubeInfo() {
       publishedAt: info.videoDetails.publishDate,
       duration: info.videoDetails.lengthSeconds,
       thumbnail: info.videoDetails.thumbnails[0].url,
-      language: 'en', // Assuming the language is English, you can modify this if needed
-      difficulty: 'Unknown', // You can set a default value or modify this based on your requirements
+      language: 'en',
+      difficulty: 'Unknown',
       channelTitle: info.videoDetails.author.name
     };
   } catch (error) {
@@ -26,8 +26,10 @@ async function extractYouTubeInfo() {
 }
 
 browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log('Received message from popup:', request);
   if (request.action === 'getYouTubeInfo') {
     extractYouTubeInfo().then((youtubeInfo) => {
+      console.log('Sending YouTube info to popup:', youtubeInfo);
       sendResponse(youtubeInfo);
     });
     return true; // Required to use sendResponse asynchronously

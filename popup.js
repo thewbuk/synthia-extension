@@ -56,19 +56,25 @@ document.getElementById('videoForm').addEventListener('submit', async (event) =>
   
   // Populate form fields with YouTube video info when the popup is opened
   browser.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    console.log('Sending message to content script:', { action: 'getYouTubeInfo' });
     browser.tabs.sendMessage(tabs[0].id, { action: 'getYouTubeInfo' }, (youtubeInfo) => {
-      document.getElementById('title').value = youtubeInfo.title;
-      document.getElementById('channel').value = youtubeInfo.channel;
-      document.getElementById('url').value = youtubeInfo.url;
-      document.getElementById('videoId').value = youtubeInfo.videoId;
-      document.getElementById('category').value = youtubeInfo.category;
-      document.getElementById('description').value = youtubeInfo.description;
-      document.getElementById('viewCount').value = youtubeInfo.viewCount;
-      document.getElementById('publishedAt').value = youtubeInfo.publishedAt;
-      document.getElementById('duration').value = youtubeInfo.duration;
-      document.getElementById('thumbnail').value = youtubeInfo.thumbnail;
-      document.getElementById('language').value = youtubeInfo.language;
-      document.getElementById('difficulty').value = youtubeInfo.difficulty;
-      document.getElementById('channelTitle').value = youtubeInfo.channelTitle;
+      console.log('Received YouTube info from content script:', youtubeInfo);
+      if (youtubeInfo) {
+        document.getElementById('title').value = youtubeInfo.title;
+        document.getElementById('channel').value = youtubeInfo.channel;
+        document.getElementById('url').value = youtubeInfo.url;
+        document.getElementById('videoId').value = youtubeInfo.videoId;
+        document.getElementById('category').value = youtubeInfo.category;
+        document.getElementById('description').value = youtubeInfo.description;
+        document.getElementById('viewCount').value = youtubeInfo.viewCount;
+        document.getElementById('publishedAt').value = youtubeInfo.publishedAt;
+        document.getElementById('duration').value = youtubeInfo.duration;
+        document.getElementById('thumbnail').value = youtubeInfo.thumbnail;
+        document.getElementById('language').value = youtubeInfo.language;
+        document.getElementById('difficulty').value = youtubeInfo.difficulty;
+        document.getElementById('channelTitle').value = youtubeInfo.channelTitle;
+      } else {
+        console.error('Failed to retrieve YouTube video info.');
+      }
     });
   });
